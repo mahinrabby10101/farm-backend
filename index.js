@@ -19,7 +19,7 @@ const client = new MongoClient(process.env.MONGO_URI, {
   },
 });
 
-// ====== Collections ======
+
 let cropsCollection;
 
 async function run() {
@@ -30,11 +30,9 @@ async function run() {
     const db = client.db("cropsService");
     cropsCollection = db.collection("Crops");
 
-    // =====================
-    // CROP ROUTES
-    // =====================
 
-    // GET all crops with optional type & limit
+
+ 
     app.get("/api/crops", async (req, res) => {
       try {
         const { type, limit } = req.query;
@@ -52,7 +50,7 @@ async function run() {
       }
     });
 
-    // GET single crop by ID
+    // get single crop by ID
     app.get("/api/crops/:id", async (req, res) => {
       const { id } = req.params;
 
@@ -70,7 +68,7 @@ async function run() {
       }
     });
 
-    // POST new crop(s)
+    // post new crops
     app.post("/api/crops", async (req, res) => {
       try {
         const data = req.body;
@@ -87,7 +85,7 @@ async function run() {
       }
     });
 
-    // POST interest (non-owner)
+    // post interest (non-owner)
     app.post("/api/crops/:id/interests", async (req, res) => {
       try {
         const { userEmail, userName, quantity, message } = req.body;
@@ -135,10 +133,10 @@ async function run() {
     });
     
 
-    // PATCH interest status (owner only)
+    //  interest status (owner only)
     app.patch("/api/crops/:cropId/interests/:interestId", async (req, res) => {
       const { cropId, interestId } = req.params;
-      const { status } = req.body; // accepted / rejected
+      const { status } = req.body; 
 
       if (!ObjectId.isValid(cropId) || !ObjectId.isValid(interestId)) {
         return res.status(400).send({ error: "Invalid ID(s)" });
