@@ -197,7 +197,7 @@ app.delete("/api/crops/:id", async (req, res) => {
 });
 
 
-// for edit table 
+// for edit tab
 
 app.patch("/api/crops/:id", async (req, res) => {
   try {
