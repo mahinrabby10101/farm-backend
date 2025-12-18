@@ -166,7 +166,7 @@ async function run() {
 run();
 
 
-// GET crops by owner email
+// gej crops by owner email
 app.get("/api/my-crops", async (req, res) => {
   const { email } = req.query;
 
@@ -179,7 +179,7 @@ app.get("/api/my-crops", async (req, res) => {
   res.send(result);
 });
 
-// UPDATE crop
+// uptodate crop
 app.put("/api/crops/:id", async (req, res) => {
   const { id } = req.params;
   await cropsCollection.updateOne(
