@@ -215,6 +215,36 @@ app.patch("/api/crops/:id", async (req, res) => {
     res.status(500).send({ error: "Failed to update crop" });
   }
 });
+ // Get all interests sent by a user
+app.get("/api/my-interests", async (req, res) => {
+  const { email } = req.query;
+  if (!email) return res.status(400).send({ error: "Email is required" });
+
+  try {
+    const allCrops = await cropsCollection.find({ "interests.userEmail": email }).toArray();
+    const myInterests = [];
+
+    allCrops.forEach(crop => {
+      crop.interests.forEach(i => {
+        if (i.userEmail === email) {
+          myInterests.push({
+            _id: i._id,
+            cropName: crop.name,
+            ownerName: crop.owner?.ownerName,
+            quantity: i.quantity,
+            message: i.message,
+            status: i.status
+          });
+        }
+      });
+    });
+
+    res.send(myInterests);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ error: "Failed to fetch interests" });
+  }
+});
 
 
 // ====== Test route ======
