@@ -189,7 +189,7 @@ app.put("/api/crops/:id", async (req, res) => {
   res.send({ success: true });
 });
 
-// DELETE crop
+// delete crop
 app.delete("/api/crops/:id", async (req, res) => {
   const { id } = req.params;
   await cropsCollection.deleteOne({ _id: new ObjectId(id) });
@@ -247,7 +247,7 @@ app.get("/api/my-interests", async (req, res) => {
 });
 
 
-// ====== Test route ======
+// test route 
 app.get("/", (req, res) => {
   res.send("Server running 🚀");
 });
